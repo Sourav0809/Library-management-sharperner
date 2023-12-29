@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import mainContext from "../store/mainContext";
+import mainContext from "../../store/mainContext";
 
 const BuyBookForm = () => {
   const bookctx = useContext(mainContext);
@@ -9,6 +9,7 @@ const BuyBookForm = () => {
     e.preventDefault();
     const submitedData = {
       bookName: bookName,
+      id: bookName,
       purchaseTime: new Date().toLocaleString(),
       expireTime: new Date(
         new Date().getTime() + 1 * 60 * 60 * 1000

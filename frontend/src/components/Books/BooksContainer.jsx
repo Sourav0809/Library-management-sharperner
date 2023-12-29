@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import mainContext from "../store/mainContext";
+import mainContext from "../../store/mainContext";
 import Book from "./Book";
 
 const BooksContainer = () => {
@@ -10,6 +10,7 @@ const BooksContainer = () => {
       {books.map((val) => {
         return (
           <Book
+            id={val.id}
             key={Math.random().toString()}
             purchaseTime={val.purchaseTime}
             expireTime={val.expireTime}
