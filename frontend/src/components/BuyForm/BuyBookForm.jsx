@@ -5,7 +5,7 @@ const BuyBookForm = () => {
   const bookctx = useContext(mainContext);
   const [bookName, setBookName] = useState("");
 
-  const submitFormHandeler = (e) => {
+  const submitFormHandeler = async (e) => {
     e.preventDefault();
     const submitedData = {
       bookName: bookName,
@@ -15,6 +15,11 @@ const BuyBookForm = () => {
         new Date().getTime() + 1 * 60 * 60 * 1000
       ).toLocaleString(),
     };
+
+    try {
+      const { data } = axios.post("http://localhost:5173/");
+    } catch (error) {}
+
     bookctx.setBooks((prev) => {
       return [...prev, submitedData];
     });

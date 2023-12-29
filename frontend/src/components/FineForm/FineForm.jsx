@@ -1,27 +1,39 @@
 import React, { useContext, useState } from "react";
 import mainContext from "../../store/mainContext";
-
-const FineForm = ({ fineAmount, bookName, purchaseTime, expireTime }) => {
+import axios from "axios";
+const FineForm = ({ fineAmount, bookName, purchaseTime, expireTime, id }) => {
   const [fine, setFine] = useState(fineAmount);
   const { setBooks, setReturnBooks } = useContext(mainContext);
-  const payFineHandeler = () => {
-    const returnedInfo = {
-      bookName: bookName,
-      id: bookName,
-      returnedTime: new Date().toLocaleString(),
-      fine: fineAmount,
-    };
+  const payFineHandeler = async () => {
+    try {
+      const returnedInfo = {
+        bookName: bookName,
+        returnedTime: new Date().toLocaleString(),
+        fine: fineAmount,
+        id: id,
+      };
+      const { data } = await axios.post(
+        "http://localhost:5000/return/addBook",
+        returnedInfo
+      );
+      console.log(data);
+      if (data) {
+        returnedInfo.id = data.id;
 
-    // we have to remove the books from purchase container
-    setBooks((prev) => {
-      console.log(prev);
-      return prev.filter((val) => val.id !== id);
-    });
+        // we have to remove the books from purchase container
+        setBooks((prev) => {
+          console.log(prev);
+          return prev.filter((val) => val.id !== id);
+        });
 
-    // now we have to add in the return container
-    setReturnBooks((prev) => {
-      return [...prev, returnedInfo];
-    });
+        // now we have to add in the return container
+        setReturnBooks((prev) => {
+          return [...prev, returnedInfo];
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
