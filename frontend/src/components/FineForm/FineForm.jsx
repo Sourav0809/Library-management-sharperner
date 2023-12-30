@@ -37,9 +37,14 @@ const FineForm = ({ fineAmount, bookName, purchaseTime, expireTime, id }) => {
   };
 
   return (
-    <div>
-      <input value={fine} disabled />
-      <button onClick={payFineHandeler}>Pay Fine</button>
+    <div className=" flex flex-col bg-blue-600 text-white mt-2">
+      <input value={fine} disabled className=" text-black" />
+      <button
+        onClick={payFineHandeler}
+        className=" px-6 py-1 rounded-md bg-blue-600 text-white"
+      >
+        Pay Fine
+      </button>
     </div>
   );
 };

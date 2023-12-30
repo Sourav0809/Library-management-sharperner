@@ -1,9 +1,9 @@
 const express = require('express')
-const { postPurchaseProduct, getPurchaseProduct } = require('../controllers/purchaseBookController')
+const { getPurchaseBook, postPurchaseBook } = require('../controllers/purchaseBookController')
 const router = express.Router()
 
-router.get('/getBooks', getPurchaseProduct)
-router.post('/addBook', postPurchaseProduct)
+router.get('/getBooks', getPurchaseBook)
+router.post('/addBook', postPurchaseBook)
 
 module.exports = router
 

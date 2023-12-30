@@ -7,9 +7,10 @@ const Book = ({ bookName, purchaseTime, expireTime, id }) => {
   const [payFine, setPayFine] = useState(false);
   const { setReturnBooks, setBooks } = useContext(mainContext);
 
+  // fine checker function
   const findFine = (time) => {
     let currentTime = Date.now();
-    let expireTime = Date.now(time);
+    let expireTime = new Date(time).getTime();
 
     if (expireTime >= currentTime) {
       return 0;
@@ -18,10 +19,10 @@ const Book = ({ bookName, purchaseTime, expireTime, id }) => {
     }
   };
 
+  // when user want to return the book
   const onReturnHandeler = async () => {
     try {
       if (findFine(expireTime) === 299) {
-        console.log("hello");
         setPayFine(true);
       } else {
         const returnedInfo = {
@@ -74,7 +75,7 @@ const Book = ({ bookName, purchaseTime, expireTime, id }) => {
           <div className=" mt-2 flex flex-col justify-center items-start gap-2 px-4 py-2 bg-blue-400 text-white text-xl rounded-md">
             <h1>BookName : {bookName}</h1>
             <h1>Book Taken On : {purchaseTime}</h1>
-            <h1>Book return Date : {expireTime}</h1>
+            <h1>Book return Time : {expireTime}</h1>
             <h1>Current Fine : {findFine(expireTime)}</h1>
             <button
               onClick={onReturnHandeler}

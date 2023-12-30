@@ -1,14 +1,31 @@
-// importing express
+// imports 
 const express = require('express')
 const bodyparser = require('body-parser')
 const cors = require("cors")
-const db = require('./util/database')
 const app = express()
 
+//importing database
+const db = require('./util/database')
+
+// importing routes
+const purchaseBooksRoutes = require('./routes/purchaseBooksRoutes')
+const returnBooksRoutes = require('./routes/returnBooksRoutes')
+
+
+// applying middlewares
 app.use(cors())
 app.use(bodyparser.urlencoded({ extended: false }))
+app.use(express.json())
 
-// Sync all models
+// applying routes
+app.use('/purchase', purchaseBooksRoutes)
+app.use('/return', returnBooksRoutes)
+
+
+
+
+
+// Sync all model
 db.sync()
     .then(() => {
         console.log('All tables synced successfully');

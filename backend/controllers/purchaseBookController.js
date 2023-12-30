@@ -1,7 +1,7 @@
 const purchaseBookModel = require('../models/purchaseBooksModel')
 
 const purchaseBookController = {
-    getPurchaseProduct(req, res) {
+    getPurchaseBook(req, res) {
         purchaseBookModel.findAll()
             .then((books) => {
                 res.send(books)
@@ -9,7 +9,8 @@ const purchaseBookController = {
             .catch(err => console.log(err))
     }
     ,
-    postPurchaseProduct(req, res) {
+    postPurchaseBook(req, res) {
+
         const bookName = req.body.bookName
         const purchaseTime = req.body.purchaseTime
         const expireTime = req.body.expireTime
